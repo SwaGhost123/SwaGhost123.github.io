@@ -5,53 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personal Portfolio</title>
   <style>
-    /* Cinematic Look: Dark, Dramatic, and Vibrant */
+    /* Cinematic Neon Look: Neon Gradient Background, Black & White Text */
     body {
       font-family: 'Segoe UI', 'Arial', sans-serif;
       margin: 0;
-      background: linear-gradient(120deg, #151515 0%, #232323 100%);
-      color: #f0e6d2;
-      scroll-behavior: smooth;
       min-height: 100vh;
+      background: linear-gradient(135deg, #00ffe7 0%, #ff00c8 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      scroll-behavior: smooth;
+      position: relative;
+      z-index: 1;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      border: 10px solid #fff;
+      border-radius: 16px;
+      box-shadow: 0 0 80px 20px #ff00c8;
+      opacity: 0.18;
+      z-index: 0;
     }
     header, section {
       padding: 2rem;
       max-width: 900px;
       margin: auto;
+      background: rgba(10,10,10,0.85);
+      border-radius: 14px;
+      box-shadow: 0 4px 24px #00ffe7;
+      position: relative;
+      z-index: 1;
     }
     header {
-      background: rgba(30,30,30,0.95);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.7);
+      box-shadow: 0 4px 24px #ff00c8;
       text-align: center;
       position: sticky;
       top: 0;
       z-index: 1000;
-      border-bottom: 2px solid #e50914;
+      border-bottom: 2px solid #fff;
+      background: rgba(10,10,10,0.93);
     }
-    h1 {
-      margin-bottom: 0;
-      font-size: 2.8rem;
-      letter-spacing: 2px;
-      color: #e50914;
-      text-shadow: 0 2px 8px #000;
+    h1, h2, h3, h4, h5, h6 {
+      color: #000;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff00c8, 0 0 40px #00ffe7;
     }
-    h2 {
-      border-left: 6px solid #e50914;
-      padding-left: 1rem;
-      margin-bottom: 1rem;
-      font-size: 2rem;
+    p, li, span, a, td, th, .text {
       color: #fff;
-      text-shadow: 0 1px 6px #000;
+      text-shadow: 0 0 4px #00ffe7, 0 0 8px #ff00c8;
     }
-    h3 {
-      color: #e50914;
-      margin-bottom: 0.5rem;
-      font-size: 1.25rem;
-      text-shadow: 0 1px 4px #000;
+    button, input, textarea {
+      background: #fff;
+      color: #000;
+      border: 2px solid #00ffe7;
+      box-shadow: 0 0 8px #ff00c8;
+      border-radius: 5px;
+      font-size: 1rem;
     }
-    ul {
-      list-style-type: none;
-      padding: 0;
+    button {
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s;
+      text-shadow: 0 1px 2px #00ffe7;
+    }
+    button:hover {
+      background: #00ffe7;
+      color: #000;
+      box-shadow: 0 0 16px #ff00c8;
+    }
+    a {
+      color: #fff;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #00ffe7;
     }
     .skills, .contact-icons, .projects-grid {
       display: flex;
@@ -61,34 +93,34 @@
     }
     .skills li {
       background: rgba(40, 40, 40, 0.85);
-      color: #e50914;
+      color: #fff;
       padding: 0.5rem 1.5rem;
       border-radius: 5px;
       font-weight: bold;
-      text-shadow: 0 1px 2px #000;
-      border: 2px solid #e50914;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      text-shadow: 0 1px 2px #00ffe7;
+      border: 2px solid #ff00c8;
+      box-shadow: 0 2px 8px #00ffe7;
     }
     .project-card {
       background: linear-gradient(135deg, #232323 70%, #151515 100%);
       border-radius: 10px;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.8);
+      box-shadow: 0 6px 24px #ff00c8;
       width: 270px;
       padding: 1.5rem;
       transition: transform 0.2s ease, box-shadow 0.2s;
-      border: 2px solid #e50914;
-      color: #f0e6d2;
+      border: 2px solid #00ffe7;
+      color: #fff;
     }
     .project-card:hover {
       transform: scale(1.07);
-      box-shadow: 0 12px 32px #e50914;
+      box-shadow: 0 12px 32px #00ffe7;
     }
     .project-card img, .project-card video {
       max-width: 100%;
       border-radius: 7px;
       margin-bottom: 0.5rem;
-      box-shadow: 0 2px 12px #e50914;
-      border: 1px solid #e50914;
+      box-shadow: 0 2px 12px #ff00c8;
+      border: 1px solid #00ffe7;
     }
     form {
       display: flex;
@@ -96,55 +128,36 @@
       gap: 1rem;
       max-width: 400px;
       margin: auto;
-      background: rgba(30,30,30,0.85);
+      background: rgba(10,10,10,0.85);
       border-radius: 8px;
       padding: 1.5rem;
-      box-shadow: 0 2px 12px #e50914;
+      box-shadow: 0 2px 12px #ff00c8;
     }
     input, textarea {
       padding: 0.75rem;
-      border: 1px solid #e50914;
-      border-radius: 5px;
-      font-size: 1rem;
+      border: 2px solid #00ffe7;
+      box-shadow: 0 1px 4px #ff00c8;
       background: #181818;
-      color: #f0e6d2;
+      color: #fff;
       resize: vertical;
       outline: none;
-      box-shadow: 0 1px 4px #000;
     }
     input:focus, textarea:focus {
-      border-color: #e50914;
-      box-shadow: 0 2px 8px #e50914;
-    }
-    button {
-      background: #e50914;
-      color: white;
-      border: none;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      text-shadow: 0 1px 2px #000;
-      transition: background 0.3s, box-shadow 0.3s;
-      box-shadow: 0 2px 8px #000;
-    }
-    button:hover {
-      background: #b0060f;
-      box-shadow: 0 2px 12px #e50914;
+      border-color: #ff00c8;
+      box-shadow: 0 2px 8px #00ffe7;
     }
     .contact-icons a {
       text-decoration: none;
       font-size: 1.5rem;
-      color: #e50914;
+      color: #fff;
       padding: 0.5rem;
       font-weight: bold;
       transition: color 0.3s, text-shadow 0.3s;
-      text-shadow: 0 1px 4px #000;
+      text-shadow: 0 1px 4px #00ffe7;
     }
     .contact-icons a:hover {
-      color: #fff;
-      text-shadow: 0 2px 8px #e50914;
+      color: #ff00c8;
+      text-shadow: 0 2px 8px #00ffe7;
     }
     @media (max-width: 600px) {
       .projects-grid {
@@ -194,13 +207,13 @@
       <img src="project1-image.jpg" alt="Project 1 Thumbnail" />
       <h3>Project Title 1</h3>
       <p>Short description of the project goes here.</p>
-      <a href="https://github.com/yourusername/project1" target="_blank" rel="noopener" style="color:#e50914;text-decoration:underline;font-weight:bold;">View Project</a>
+      <a href="https://github.com/yourusername/project1" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;font-weight:bold;">View Project</a>
     </div>
     <div class="project-card">
       <video controls src="project2-video.mp4" alt="Project 2 Video"></video>
       <h3>Project Title 2</h3>
       <p>Short description of the project goes here.</p>
-      <a href="https://github.com/yourusername/project2" target="_blank" rel="noopener" style="color:#e50914;text-decoration:underline;font-weight:bold;">View Project</a>
+      <a href="https://github.com/yourusername/project2" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;font-weight:bold;">View Project</a>
     </div>
     <!-- Add more project cards similarly -->
   </div>
