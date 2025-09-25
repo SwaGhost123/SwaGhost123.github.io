@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personal Portfolio</title>
   <style>
-    /* Cinematic Neon Look: Neon Gradient Background, Black & White Text */
+    /* Enhanced Cinematic Neon Look */
     body {
       font-family: 'Segoe UI', 'Arial', sans-serif;
       margin: 0;
       min-height: 100vh;
-      background: url('https://images.stockcake.com/public/8/c/e/8ceee96b-1d4e-4423-9c92-1385d130e8b6_large/neon-data-stream-stockcake.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: 
+        linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(10, 25, 47, 0.6)),
+        url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'),
+        url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80');
+      background-size: cover, 50% 100%, 50% 100%;
+      background-position: center, left, right;
+      background-repeat: no-repeat;
+      background-blend-mode: overlay, normal, normal;
       color: #fff;
       display: flex;
       flex-direction: column;
@@ -21,145 +27,330 @@
       position: relative;
       z-index: 1;
     }
+    
+    /* Add overlay for better text readability */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 255, 231, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 200, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 20, 40, 0.2));
+      pointer-events: none;
+      z-index: -1;
+    }
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
-      border: 10px solid #fff;
+      border: 3px solid #00ffe7;
       border-radius: 16px;
-      box-shadow: 0 0 80px 20px #ff00c8;
-      opacity: 0.18;
+      box-shadow: 
+        0 0 20px #00ffe7,
+        0 0 40px #ff00c8,
+        inset 0 0 20px rgba(0, 255, 231, 0.1);
+      opacity: 0.6;
       z-index: 0;
+      animation: borderPulse 3s ease-in-out infinite alternate;
     }
+    
+    @keyframes borderPulse {
+      0% { 
+        box-shadow: 
+          0 0 20px #00ffe7,
+          0 0 40px #ff00c8,
+          inset 0 0 20px rgba(0, 255, 231, 0.1);
+      }
+      100% { 
+        box-shadow: 
+          0 0 40px #00ffe7,
+          0 0 80px #ff00c8,
+          inset 0 0 40px rgba(0, 255, 231, 0.2);
+      }
+    }
+    
     header, section {
-      padding: 2rem;
+      padding: 2.5rem;
       max-width: 900px;
-      margin: auto;
-      background: rgba(10,10,10,0.85);
+      margin: 1rem auto;
+      background: rgba(0, 0, 0, 0.8);
       border-radius: 14px;
-      box-shadow: 0 4px 24px #00ffe7;
+      border: 1px solid rgba(0, 255, 231, 0.4);
+      backdrop-filter: blur(12px);
       position: relative;
       z-index: 1;
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 4px 16px rgba(0, 255, 231, 0.2);
     }
+    
     header {
-      box-shadow: 0 4px 24px #ff00c8;
       text-align: center;
-      z-index: 1000;
-      border-bottom: 2px solid #fff;
-      background: rgba(10,10,10,0.93);
-    }
-    h1, h2, h3, h4, h5, h6 {
-      color: #000;
-      text-shadow: 0 0 10px #fff, 0 0 20px #ff00c8, 0 0 40px #00ffe7;
-    }
-    p, li, span, a, td, th, .text {
-      color: #fff;
-      text-shadow: 0 0 4px #00ffe7, 0 0 8px #ff00c8;
-    }
-    button, input, textarea {
-      background: #fff;
-      color: #000;
+      background: rgba(0, 0, 0, 0.85);
       border: 2px solid #00ffe7;
-      box-shadow: 0 0 8px #ff00c8;
-      border-radius: 5px;
-      font-size: 1rem;
+      box-shadow: 
+        0 0 30px #00ffe7,
+        0 0 60px #ff00c8,
+        0 8px 32px rgba(0, 0, 0, 0.5);
+      animation: headerGlow 4s ease-in-out infinite alternate;
     }
+    
+    @keyframes headerGlow {
+      0% { 
+        box-shadow: 
+          0 0 30px #00ffe7,
+          0 0 60px #ff00c8;
+      }
+      100% { 
+        box-shadow: 
+          0 0 50px #00ffe7,
+          0 0 100px #ff00c8;
+      }
+    }
+    
+    /* Vibrant neon text */
+    h1 {
+      color: #ffffff;
+      font-size: 3rem;
+      text-shadow: 
+        0 0 10px #00ffe7,
+        0 0 20px #00ffe7,
+        0 0 40px #ff00c8,
+        0 0 80px #ff00c8;
+      animation: textPulse 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes textPulse {
+      0% { 
+        text-shadow: 
+          0 0 10px #00ffe7,
+          0 0 20px #00ffe7,
+          0 0 40px #ff00c8,
+          0 0 80px #ff00c8;
+      }
+      100% { 
+        text-shadow: 
+          0 0 20px #00ffe7,
+          0 0 40px #00ffe7,
+          0 0 60px #ff00c8,
+          0 0 120px #ff00c8;
+      }
+    }
+    
+    h2 {
+      color: #00ffe7;
+      font-size: 2.2rem;
+      text-shadow: 
+        0 0 10px #00ffe7,
+        0 0 20px #00ffe7,
+        0 0 30px #ffffff;
+    }
+    
+    h3 {
+      color: #ff00c8;
+      text-shadow: 
+        0 0 8px #ff00c8,
+        0 0 16px #ff00c8;
+    }
+    
+    p, li, span {
+      color: #ffffff;
+      font-weight: 500;
+      text-shadow: 
+        0 0 8px rgba(255, 255, 255, 0.9),
+        0 0 16px rgba(0, 255, 231, 0.6),
+        0 2px 4px rgba(0, 0, 0, 0.8);
+      line-height: 1.6;
+    }
+    
+    /* Enhanced buttons */
+    button, input, textarea {
+      background: rgba(0, 0, 0, 0.7);
+      color: #00ffe7;
+      border: 2px solid #00ffe7;
+      box-shadow: 
+        0 0 10px #00ffe7,
+        inset 0 0 10px rgba(0, 255, 231, 0.1);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
     button {
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s, box-shadow 0.3s;
-      text-shadow: 0 1px 2px #00ffe7;
+      padding: 12px 24px;
+      text-shadow: 0 0 8px #00ffe7;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
+    
     button:hover {
       background: #00ffe7;
       color: #000;
-      box-shadow: 0 0 16px #ff00c8;
+      box-shadow: 
+        0 0 20px #00ffe7,
+        0 0 40px #ff00c8;
+      transform: translateY(-2px);
     }
+    
+    /* Glowing links */
     a {
-      color: #fff;
-      text-decoration: underline;
-      transition: color 0.2s;
-    }
-    a:hover {
       color: #00ffe7;
+      text-decoration: none;
+      text-shadow: 0 0 8px #00ffe7;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba(0, 255, 231, 0.3);
     }
-    .skills, .contact-icons, .projects-grid {
+    
+    a:hover {
+      color: #ff00c8;
+      text-shadow: 
+        0 0 8px #ff00c8,
+        0 0 16px #ff00c8;
+      border-bottom-color: #ff00c8;
+    }
+    
+    /* Neon skill tags */
+    .skills {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
       justify-content: center;
+      list-style: none;
+      padding: 0;
     }
+    
     .skills li {
-      background: rgba(40, 40, 40, 0.85);
-      color: #fff;
-      padding: 0.5rem 1.5rem;
-      border-radius: 5px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
       font-weight: bold;
-      text-shadow: 0 1px 2px #00ffe7;
       border: 2px solid #ff00c8;
-      box-shadow: 0 2px 8px #00ffe7;
+      box-shadow: 
+        0 0 15px #ff00c8,
+        inset 0 0 15px rgba(255, 0, 200, 0.1);
+      text-shadow: 0 0 8px #ffffff;
+      transition: all 0.3s ease;
     }
+    
+    .skills li:hover {
+      transform: scale(1.1);
+      box-shadow: 
+        0 0 25px #ff00c8,
+        0 0 50px #00ffe7;
+    }
+    
+    /* Enhanced project cards */
+    .projects-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    
     .project-card {
-      background: linear-gradient(135deg, #232323 70%, #151515 100%);
-      border-radius: 10px;
-      box-shadow: 0 6px 24px #ff00c8;
-      width: 270px;
-      padding: 1.5rem;
-      transition: transform 0.2s ease, box-shadow 0.2s;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
       border: 2px solid #00ffe7;
-      color: #fff;
+      box-shadow: 
+        0 0 20px #00ffe7,
+        0 8px 32px rgba(255, 0, 200, 0.3);
+      width: 280px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
     }
+    
     .project-card:hover {
-      transform: scale(1.07);
-      box-shadow: 0 12px 32px #00ffe7;
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 
+        0 0 40px #00ffe7,
+        0 0 80px #ff00c8,
+        0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: #ff00c8;
     }
+    
     .project-card img, .project-card video {
       max-width: 100%;
-      border-radius: 7px;
-      margin-bottom: 0.5rem;
-      box-shadow: 0 2px 12px #ff00c8;
-      border: 1px solid #00ffe7;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 15px rgba(0, 255, 231, 0.4);
+      border: 1px solid rgba(0, 255, 231, 0.3);
     }
+    
+    /* Enhanced contact form */
     form {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.5rem;
       max-width: 400px;
       margin: auto;
-      background: rgba(10,10,10,0.85);
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 12px #ff00c8;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 15px;
+      padding: 2rem;
+      border: 1px solid rgba(0, 255, 231, 0.3);
+      box-shadow: 
+        0 0 20px rgba(0, 255, 231, 0.2),
+        0 0 40px rgba(255, 0, 200, 0.1);
     }
+    
     input, textarea {
-      padding: 0.75rem;
-      border: 2px solid #00ffe7;
-      box-shadow: 0 1px 4px #ff00c8;
-      background: #181818;
-      color: #fff;
+      padding: 1rem;
+      border: 2px solid rgba(0, 255, 231, 0.5);
+      background: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
       resize: vertical;
       outline: none;
+      border-radius: 8px;
     }
+    
     input:focus, textarea:focus {
       border-color: #ff00c8;
-      box-shadow: 0 2px 8px #00ffe7;
+      box-shadow: 
+        0 0 15px #ff00c8,
+        inset 0 0 10px rgba(255, 0, 200, 0.1);
     }
+    
+    /* Contact icons */
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
     .contact-icons a {
-      text-decoration: none;
-      font-size: 1.5rem;
-      color: #fff;
-      padding: 0.5rem;
+      font-size: 1.2rem;
       font-weight: bold;
-      transition: color 0.3s, text-shadow 0.3s;
-      text-shadow: 0 1px 4px #00ffe7;
+      padding: 1rem;
+      border: 2px solid #00ffe7;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
     }
+    
     .contact-icons a:hover {
-      color: #ff00c8;
-      text-shadow: 0 2px 8px #00ffe7;
+      background: rgba(0, 255, 231, 0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px #00ffe7;
     }
+    
+    /* Responsive design */
     @media (max-width: 600px) {
       .projects-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .contact-icons {
         flex-direction: column;
         align-items: center;
       }
@@ -170,12 +361,12 @@
 
 <header>
   <h1>Swagot Saikia</h1>
-  <p style="color:#fff;">IT Student | Filmmaker | Editor | Photographer</p>
+  <p>IT Student | Filmmaker | Editor | Photographer</p>
 </header>
 
 <section id="about">
   <h2>About Me</h2>
-  <p>I am an IT student passionate about AI, hacking, filmmaking, and photography. I enjoy combining technical skills with creative storytelling.</p>
+  <p>I am an IT student passionate about AI, hacking, filmmaking, and photography. I enjoy combining technical skills with creative storytelling to create immersive digital experiences.</p>
 </section>
 
 <section id="skills">
@@ -205,16 +396,15 @@
     <div class="project-card">
       <img src="project1-image.jpg" alt="Project 1 Thumbnail" />
       <h3>Project Title 1</h3>
-      <p>Short description of the project goes here.</p>
-      <a href="https://github.com/yourusername/project1" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;font-weight:bold;">View Project</a>
+      <p>Short description of the project goes here. This showcases my technical skills.</p>
+      <a href="https://github.com/yourusername/project1" target="_blank" rel="noopener">View Project</a>
     </div>
     <div class="project-card">
       <video controls src="project2-video.mp4" alt="Project 2 Video"></video>
       <h3>Project Title 2</h3>
-      <p>Short description of the project goes here.</p>
-      <a href="https://github.com/yourusername/project2" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;font-weight:bold;">View Project</a>
+      <p>Short description of the project goes here. This demonstrates my creative abilities.</p>
+      <a href="https://github.com/yourusername/project2" target="_blank" rel="noopener">View Project</a>
     </div>
-    <!-- Add more project cards similarly -->
   </div>
 </section>
 
@@ -224,10 +414,10 @@
     <input type="text" name="name" placeholder="Your Name" required />
     <input type="email" name="_replyto" placeholder="Your Email" required />
     <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-    <button type="submit">Send</button>
+    <button type="submit">Send Message</button>
   </form>
-  <div class="contact-icons" style="text-align:center; margin-top:1rem;">
-    <a href="https://github.com/SwaGhost123" target="_blank" rel="noopener">GitHub</a> |
+  <div class="contact-icons">
+    <a href="https://github.com/SwaGhost123" target="_blank" rel="noopener">GitHub</a>
     <a href="https://www.linkedin.com/in/swagot-saikia-41b145384/" target="_blank" rel="noopener">LinkedIn</a>
   </div>
 </section>
