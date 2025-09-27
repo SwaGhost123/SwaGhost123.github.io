@@ -278,20 +278,21 @@
     }
     
     /* Enhanced contact form */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      max-width: 400px;
-      margin: auto;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 15px;
-      padding: 2rem;
-      border: 1px solid rgba(0, 255, 231, 0.3);
-      box-shadow: 
-        0 0 20px rgba(0, 255, 231, 0.2),
-        0 0 40px rgba(255, 0, 200, 0.1);
-    }
+   <form
+  action="https://formspree.io/f/mkgqovwe"
+  method="POST"
+>
+  <label>
+    Your email:
+    <input type="email" name="email">
+  </label>
+  <label>
+    Your message:
+    <textarea name="message"></textarea>
+  </label>
+  <!-- your other form fields go here -->
+  <button type="submit">Send</button>
+</form>
     
     input, textarea {
       padding: 1rem;
