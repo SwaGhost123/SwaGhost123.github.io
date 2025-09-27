@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Personal Portfolio</title>
+  <title>Personal Portfolio - Swagot Saikia</title>
   <style>
     /* Enhanced Cinematic Neon Look */
     body {
@@ -116,6 +116,7 @@
         0 0 15px #ff00c8,
         0 2px 4px rgba(0, 0, 0, 0.8);
       animation: textPulse 3s ease-in-out infinite alternate;
+      margin-bottom: 0.5rem;
     }
     
     @keyframes textPulse {
@@ -133,6 +134,13 @@
       }
     }
     
+    .tagline {
+      font-size: 1.2rem;
+      color: #00ffe7;
+      text-shadow: 0 0 8px #00ffe7;
+      margin-top: 0.5rem;
+    }
+    
     h2 {
       color: #00ffe7;
       font-size: 2.2rem;
@@ -140,6 +148,8 @@
         0 0 6px #00ffe7,
         0 0 12px #00ffe7,
         0 2px 4px rgba(0, 0, 0, 0.8);
+      text-align: center;
+      margin-bottom: 1.5rem;
     }
     
     h3 {
@@ -148,6 +158,13 @@
         0 0 4px #ff00c8,
         0 0 8px #ff00c8,
         0 2px 4px rgba(0, 0, 0, 0.8);
+      margin-bottom: 1rem;
+    }
+    
+    h4 {
+      color: #00ffe7;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 8px #00ffe7;
     }
     
     p, li, span {
@@ -216,6 +233,7 @@
       justify-content: center;
       list-style: none;
       padding: 0;
+      margin-bottom: 2rem;
     }
     
     .skills li {
@@ -269,7 +287,7 @@
       border-color: #ff00c8;
     }
     
-    .project-card, .project-card {
+    .project-card img, .project-card video {
       max-width: 100%;
       border-radius: 10px;
       margin-bottom: 1rem;
@@ -278,23 +296,25 @@
     }
     
     /* Enhanced contact form */
-   <form
-  action="https://formspree.io/f/mkgqovwe"
-  method="POST"
->
-  <label>
-    Your email:
-    <input type="email" name="email">
-  </label>
-  <label>
-    Your message:
-    <textarea name="message"></textarea>
-  </label>
-  <!-- your other form fields go here -->
-  <button type="submit">Send</button>
-</form>
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #00ffe7;
+      font-weight: bold;
+      text-shadow: 0 0 8px #00ffe7;
+    }
     
     input, textarea {
+      width: 100%;
       padding: 1rem;
       border: 2px solid rgba(0, 255, 231, 0.5);
       background: rgba(0, 0, 0, 0.6);
@@ -302,6 +322,13 @@
       resize: vertical;
       outline: none;
       border-radius: 8px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+    
+    textarea {
+      min-height: 120px;
     }
     
     input:focus, textarea:focus {
@@ -309,46 +336,154 @@
       box-shadow: 
         0 0 15px #ff00c8,
         inset 0 0 10px rgba(255, 0, 200, 0.1);
+      transform: translateY(-1px);
     }
     
-    /* Contact icons */
+    .submit-btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #00ffe7, #ff00c8);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 4px 15px rgba(0, 255, 231, 0.3),
+        0 4px 15px rgba(255, 0, 200, 0.3);
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 8px 25px rgba(0, 255, 231, 0.5),
+        0 8px 25px rgba(255, 0, 200, 0.5);
+      filter: brightness(1.1);
+    }
+    
+    /* Contact information */
+    .contact-info {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .contact-info h3 {
+      margin-bottom: 1rem;
+    }
+    
+    .contact-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .contact-method {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 2px solid rgba(0, 255, 231, 0.3);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .contact-method:hover {
+      border-color: #ff00c8;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 0, 200, 0.3);
+    }
+    
+    .contact-method h4 {
+      color: #00ffe7;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 8px #00ffe7;
+    }
+    
     .contact-icons {
       display: flex;
       justify-content: center;
       gap: 2rem;
       margin-top: 2rem;
+      flex-wrap: wrap;
     }
     
     .contact-icons a {
       font-size: 1.2rem;
       font-weight: bold;
-      padding: 1rem;
+      padding: 1rem 1.5rem;
       border: 2px solid #00ffe7;
       border-radius: 10px;
       background: rgba(0, 0, 0, 0.5);
       transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
     }
     
     .contact-icons a:hover {
       background: rgba(0, 255, 231, 0.1);
       transform: translateY(-3px);
       box-shadow: 0 0 20px #00ffe7;
+      border-bottom: 2px solid #00ffe7;
+    }
+    
+    .divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffe7, #ff00c8, transparent);
+      margin: 2rem 0;
+      border-radius: 2px;
     }
     
     /* Responsive design */
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .projects-grid {
         flex-direction: column;
         align-items: center;
       }
       
+      .project-card {
+        width: 100%;
+        max-width: 400px;
+      }
+      
       h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
+      }
+      
+      h2 {
+        font-size: 1.8rem;
       }
       
       .contact-icons {
         flex-direction: column;
         align-items: center;
+      }
+      
+      .contact-methods {
+        grid-template-columns: 1fr;
+      }
+      
+      header, section {
+        padding: 1.5rem;
+        margin: 0.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tagline {
+        font-size: 1rem;
+      }
+      
+      .skills li {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -357,73 +492,114 @@
 
 <header>
   <h1>Swagot Saikia</h1>
-  <p>IT Student | Filmmaker | Editor | Photographer</p>
+  <p class="tagline">IT Student | Filmmaker | Editor | Photographer</p>
 </header>
 
 <section id="about">
   <h2>About Me</h2>
-  <p>I am an IT student passionate about AI, hacking, filmmaking, and photography. I enjoy combining technical skills with creative storytelling to create immersive digital experiences.</p>
+  <p>I am an IT student passionate about AI, hacking, filmmaking, and photography. I enjoy combining technical skills with creative storytelling to create immersive digital experiences. My goal is to bridge the gap between technology and art, creating innovative solutions that captivate and inspire.</p>
+  <p>When I'm not coding or studying, you'll find me behind a camera capturing moments or editing the next great story. I believe that technology and creativity together can solve any challenge and tell any story worth telling.</p>
 </section>
 
 <section id="skills">
-  <h2>Skills</h2>
+  <h2>Skills & Expertise</h2>
   <div>
-    <h3>Technical</h3>
+    <h3>Technical Skills</h3>
     <ul class="skills">
       <li>Programming</li>
-      <li>AI</li>
-      <li>Hacking</li>
-      <li>IT Tools</li>
+      <li>Artificial Intelligence</li>
+      <li>Cybersecurity & Hacking</li>
+      <li>IT Infrastructure</li>
+      <li>Web Development</li>
+      <li>Data Analysis</li>
     </ul>
   </div>
   <div>
-    <h3>Creative</h3>
+    <h3>Creative Skills</h3>
     <ul class="skills">
       <li>Filmmaking</li>
-      <li>Editing</li>
+      <li>Video Editing</li>
       <li>Photography</li>
+      <li>Visual Storytelling</li>
+      <li>Content Creation</li>
+      <li>Digital Art</li>
     </ul>
   </div>
 </section>
 
 <section id="projects">
-  <h2>Projects</h2>
+  <h2>Featured Projects</h2>
   <div class="projects-grid">
     <div class="project-card">
-      <img src="technical project-image.jpg" alt="Technical Project Thumbnail" />
-      <h3>Creative Projects</h3>
-      <p>Short description of the project goes here. This showcases my technical skills.</p>
-      <a href="https://github.com/yourusername/project1" target="_blank" rel="noopener">View Project</a>
+      <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Technical Project Thumbnail" />
+      <h3>AI & Tech Projects</h3>
+      <p>Innovative technical solutions combining AI, cybersecurity, and modern web technologies. These projects showcase my problem-solving skills and technical expertise.</p>
+      <a href="https://github.com/SwaGhost123" target="_blank" rel="noopener">View on GitHub →</a>
     </div>
     <div class="project-card">
-      <video controls src="project2-video.mp4" alt="Creative Project"></video>
-      <h3>Technical Projects</h3>
-      <p>Short description of the project goes here. This demonstrates my creative abilities.</p>
-      <a href="https://github.com/yourusername/project2" target="_blank" rel="noopener">View Project</a>
+      <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Creative Project Thumbnail" />
+      <h3>Creative Portfolio</h3>
+      <p>Film projects, photography collections, and visual storytelling work that demonstrate my artistic vision and technical skills in multimedia production.</p>
+      <a href="#contact">Get in Touch →</a>
     </div>
   </div>
 </section>
 
 <section id="contact">
-  <h2>Contact Me</h2>
- <form
-  action="https://formspree.io/f/mkgqovwe"
-  method="POST"
->
-  <label>
-    Your email:
-    <input type="email" name="email">
-  </label>
-  <label>
-    Your message:
-    <textarea name="message"></textarea>
-  </label>
-  <!-- your other form fields go here -->
-  <button type="submit">Send</button>
-</form>
+  <h2>Get In Touch</h2>
+  
+  <div class="contact-info">
+    <p>Let's collaborate on your next project! Whether you need technical expertise or creative solutions, I'm here to help bring your vision to life.</p>
+  </div>
+  
+  <div class="contact-methods">
+    <div class="contact-method">
+      <h4>📧 Direct Email</h4>
+      <p>swagotsaikia@gmail.com</p>
+      <p>I'll get back to you within 24 hours</p>
+    </div>
+    <div class="contact-method">
+      <h4>📱 Quick Response</h4>
+      <p>Use the form below for fastest response</p>
+      <p>Perfect for project inquiries and collaborations</p>
+    </div>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <div class="contact-form">
+    <h3>Send me a message</h3>
+    <form action="https://formspree.io/f/mkgqovwe" method="POST">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="John Doe" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="Project Collaboration" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" placeholder="Tell me about your project, idea, or how we can work together..." required></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+  </div>
+  
+  <div class="divider"></div>
+  
   <div class="contact-icons">
-    <a href="https://github.com/SwaGhost123" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.linkedin.com/in/swagot-saikia-41b145384/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/SwaGhost123" target="_blank" rel="noopener">🔗 GitHub</a>
+    <a href="https://www.linkedin.com/in/swagot-saikia-41b145384/" target="_blank" rel="noopener">💼 LinkedIn</a>
+    <a href="mailto:swagotsaikia@gmail.com">✉️ Email</a>
   </div>
 </section>
 
