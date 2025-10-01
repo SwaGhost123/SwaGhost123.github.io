@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Technical Projects - Swagot Saikia</title>
+  <style>
+    /* Enhanced Cinematic Neon Look */
+    body {
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: 
+        linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(10, 25, 47, 0.5)),
+        url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80') center/cover no-repeat;
+      background-blend-mode: overlay, normal;
+      background-attachment: fixed;
+      color: #fff;
+      padding: 2rem 1rem;
+      scroll-behavior: smooth;
+      position: relative;
+      z-index: 1;
+    }
+    
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 255, 231, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 200, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 20, 40, 0.2));
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      border: 3px solid #00ffe7;
+      border-radius: 16px;
+      box-shadow: 
+        0 0 20px #00ffe7,
+        0 0 40px #ff00c8,
+        inset 0 0 20px rgba(0, 255, 231, 0.1);
+      opacity: 0.6;
+      z-index: 0;
+      animation: borderPulse 3s ease-in-out infinite alternate;
+    }
+    
+    @keyframes borderPulse {
+      0% { 
+        box-shadow: 
+          0 0 20px #00ffe7,
+          0 0 40px #ff00c8,
+          inset 0 0 20px rgba(0, 255, 231, 0.1);
+      }
+      100% { 
+        box-shadow: 
+          0 0 40px #00ffe7,
+          0 0 80px #ff00c8,
+          inset 0 0 40px rgba(0, 255, 231, 0.2);
+      }
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    header {
+      text-align: center;
+      padding: 2.5rem;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 14px;
+      border: 2px solid #00ffe7;
+      margin-bottom: 2rem;
+      box-shadow: 
+        0 0 30px #00ffe7,
+        0 0 60px #ff00c8,
+        0 8px 32px rgba(0, 0, 0, 0.5);
+      animation: headerGlow 4s ease-in-out infinite alternate;
+    }
+    
+    @keyframes headerGlow {
+      0% { 
+        box-shadow: 
+          0 0 30px #00ffe7,
+          0 0 60px #ff00c8;
+      }
+      100% { 
+        box-shadow: 
+          0 0 50px #00ffe7,
+          0 0 100px #ff00c8;
+      }
+    }
+    
+    h1 {
+      color: #ffffff;
+      font-size: 3rem;
+      text-shadow: 
+        0 0 8px #00ffe7,
+        0 0 15px #ff00c8,
+        0 2px 4px rgba(0, 0, 0, 0.8);
+      animation: textPulse 3s ease-in-out infinite alternate;
+      margin-bottom: 0.5rem;
+    }
+    
+    @keyframes textPulse {
+      0% { 
+        text-shadow: 
+          0 0 8px #00ffe7,
+          0 0 15px #ff00c8,
+          0 2px 4px rgba(0, 0, 0, 0.8);
+      }
+      100% { 
+        text-shadow: 
+          0 0 12px #00ffe7,
+          0 0 25px #ff00c8,
+          0 2px 4px rgba(0, 0, 0, 0.8);
+      }
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: #00ffe7;
+      text-shadow: 0 0 8px #00ffe7;
+      margin-top: 0.5rem;
+    }
+    
+    .back-link {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.8rem 1.5rem;
+      background: rgba(0, 0, 0, 0.7);
+      color: #00ffe7;
+      border: 2px solid #00ffe7;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #00ffe7;
+    }
+    
+    .back-link:hover {
+      background: #00ffe7;
+      color: #000;
+      box-shadow: 0 0 20px #00ffe7, 0 0 40px #ff00c8;
+      transform: translateY(-2px);
+    }
+    
+    .intro {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 2rem;
+      border-radius: 14px;
+      border: 1px solid rgba(0, 255, 231, 0.4);
+      margin-bottom: 3rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+    }
+    
+    .intro p {
+      color: #ffffff;
+      text-shadow: 
+        0 0 4px rgba(255, 255, 255, 0.8),
+        0 0 8px rgba(0, 255, 231, 0.3),
+        0 1px 2px rgba(0, 0, 0, 0.8);
+      line-height: 1.8;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .project-card {
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 15px;
+      border: 2px solid #00ffe7;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      box-shadow: 
+        0 0 20px #00ffe7,
+        0 8px 32px rgba(255, 0, 200, 0.3);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 
+        0 0 40px #00ffe7,
+        0 0 80px #ff00c8,
+        0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: #ff00c8;
+    }
+    
+    .project-card h2 {
+      color: #00ffe7;
+      font-size: 1.8rem;
+      text-shadow: 
+        0 0 6px #00ffe7,
+        0 0 12px #00ffe7,
+        0 2px 4px rgba(0, 0, 0, 0.8);
+      margin-bottom: 1rem;
+    }
+    
+    .project-card h3 {
+      color: #ff00c8;
+      text-shadow: 
+        0 0 4px #ff00c8,
+        0 0 8px #ff00c8,
+        0 2px 4px rgba(0, 0, 0, 0.8);
+      margin: 1.5rem 0 0.8rem 0;
+      font-size: 1.2rem;
+    }
+    
+    .project-card p, .project-card li {
+      color: #ffffff;
+      text-shadow: 
+        0 0 4px rgba(255, 255, 255, 0.8),
+        0 0 8px rgba(0, 255, 231, 0.3),
+        0 1px 2px rgba(0, 0, 0, 0.8);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .project-card ul {
+      padding-left: 1.5rem;
+      margin: 0.5rem 0;
+    }
+    
+    .project-card li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    
+    .tech-tag {
+      background: rgba(255, 0, 200, 0.2);
+      color: #ff00c8;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      border: 1px solid #ff00c8;
+      text-shadow: 0 0 6px #ff00c8;
+      box-shadow: 0 0 10px rgba(255, 0, 200, 0.3);
+    }
+    
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .project-link {
+      display: inline-block;
+      padding: 0.7rem 1.2rem;
+      background: rgba(0, 0, 0, 0.7);
+      color: #00ffe7;
+      border: 2px solid #00ffe7;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #00ffe7;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+    
+    .project-link:hover {
+      background: #00ffe7;
+      color: #000;
+      box-shadow: 0 0 20px #00ffe7;
+      transform: translateY(-2px);
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-left: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .status-complete {
+      background: rgba(0, 255, 100, 0.2);
+      color: #00ff64;
+      border: 1px solid #00ff64;
+      text-shadow: 0 0 6px #00ff64;
+      box-shadow: 0 0 10px rgba(0, 255, 100, 0.3);
+    }
+    
+    .status-progress {
+      background: rgba(255, 200, 0, 0.2);
+      color: #ffc800;
+      border: 1px solid #ffc800;
+      text-shadow: 0 0 6px #ffc800;
+      box-shadow: 0 0 10px rgba(255, 200, 0, 0.3);
+    }
+    
+    .status-planned {
+      background: rgba(0, 150, 255, 0.2);
+      color: #0096ff;
+      border: 1px solid #0096ff;
+      text-shadow: 0 0 6px #0096ff;
+      box-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      header, .intro {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Technical Projects</h1>
+      <p class="subtitle">AI, Web Development & Cybersecurity</p>
+      <a href="index.html" class="back-link">← Back to Portfolio</a>
+    </header>
+    
+    <div class="intro">
+      <p>Here's a collection of my technical projects showcasing my skills in programming, artificial intelligence, web development, and cybersecurity. Each project represents a unique challenge and learning experience in the ever-evolving world of technology.</p>
+    </div>
+    
+    <div class="projects-grid">
+      <div class="project-card">
+        <h2>AI-Powered Chatbot <span class="status-badge status-progress">In Progress</span></h2>
+        <p>An intelligent conversational AI that uses natural language processing to understand and respond to user queries. Built with modern machine learning frameworks and deployed as a web application.</p>
+        
+        <h3>Key Features</h3>
+        <ul>
+          <li>Natural language understanding and context retention</li>
+          <li>Multi-turn conversation capability</li>
+          <li>Sentiment analysis integration</li>
+          <li>Custom training on domain-specific data</li>
+        </ul>
+        
+        <h3>Technologies</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">TensorFlow</span>
+          <span class="tech-tag">NLP</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">REST API</span>
+        </div>
+        
+        <div class="project-links">
+          <a href="https://github.com/SwaGhost123" class="project-link">View Code</a>
+          <a href="#" class="project-link">Live Demo</a>
+        </div>
+      </div>
+      
+      <div class="project-card">
+        <h2>Network Security Scanner <span class="status-badge status-complete">Complete</span></h2>
+        <p>A comprehensive network vulnerability assessment tool that identifies security weaknesses and provides detailed reports with remediation recommendations.</p>
+        
+        <h3>Key Features</h3>
+        <ul>
+          <li>Port scanning and service detection</li>
+          <li>Vulnerability database integration</li>
+          <li>Automated security report generation</li>
+          <li>Real-time threat monitoring</li>
+        </ul>
+        
+        <h3>Technologies</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Nmap</span>
+          <span class="tech-tag">Scapy</span>
+          <span class="tech-tag">SQLite</span>
+          <span class="tech-tag">Cybersecurity</span>
+        </div>
+        
+        <div class="project-links">
+          <a href="https://github.com/SwaGhost123" class="project-link">View Code</a>
+        </div>
+      </div>
+      
+      <div class="project-card">
+        <h2>Portfolio Website <span class="status-badge status-progress">In Progress</span></h2>
+        <p>A modern, responsive portfolio website with a cinematic neon aesthetic. Features smooth animations, interactive elements, and a focus on user experience.</p>
+        
+        <h3>Key Features</h3>
+        <ul>
+          <li>Responsive design for all devices</li>
+          <li>Integrated contact form with email functionality</li>
+          <li>Project showcase with filtering</li>
+          <li>Custom animations and transitions</li>
+        </ul>
+        
+        <h3>Technologies</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">HTML5</span>
+          <span class="tech-tag">CSS3</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">Formspree</span>
+        </div>
+        
+        <div class="project-links">
+          <a href="https://github.com/SwaGhost123" class="project-link">View Code</a>
+          <a href="#" class="project-link">Live Site</a>
+        </div>
+      </div>
+      
+      <div class="project-card">
+        <h2>Data Analysis Dashboard <span class="status-badge status-planned">Planned</span></h2>
+        <p>An interactive data visualization dashboard for analyzing and presenting complex datasets. Features real-time updates and customizable chart components.</p>
+        
+        <h3>Key Features</h3>
+        <ul>
+          <li>Interactive charts and graphs</li>
+          <li>Real-time data processing</li>
+          <li>Multiple data source integration</li>
+          <li>Export functionality for reports</li>
+        </ul>
+        
+        <h3>Technologies</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">D3.js</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Pandas</span>
+          <span class="tech-tag">MongoDB</span>
+        </div>
+        
+        <div class="project-links">
+          <a href="https://github.com/SwaGhost123" class="project-link">View Progress</a>
+        </div>
+      </div>
+      
+      <div class="project-card">
+        <h2>Machine Learning Model <span class="status-badge status-complete">Complete</span></h2>
+        <p>A predictive model using supervised learning algorithms to classify data and make accurate predictions based on historical patterns.</p>
+        
+        <h3>Key Features</h3>
+        <ul>
+          <li>Multiple algorithm comparison</li>
+          <li>Cross-validation and hyperparameter tuning</li>
+          <li>Feature engineering and selection</li>
+          <li>Model performance visualization</li>
+        </ul>
+        
+        <h3>Technologies</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Scikit-learn</span>
+          <span class="tech-tag">Jupyter</span>
+          <span class="tech-tag">Matplotlib</span>
+        </div>
+        
+        <div class="project-links">
+          <a href="https://github.com/SwaGhost123" class="project-link">View Code</a>
+        </div>
+      </div>
+      
+      <div class="project-card">
+        <h2>Web Scraping Tool <span class="status-badge status-complete">Complete</span></h2>
+        <p>An automated web scraping solution that extracts, processes, and stores data from multiple sources with error handling and rate limiting.</p>
+        
+        <h3>Key Features</h3>
+        <ul>
+          <li>Multi-threaded scraping for efficiency</li>
+          <li>Dynamic content handling</li>
+          <li>Data cleaning and normalization</li>
+          <li>Automated scheduling</li>
+        </ul>
+        
+        <h3>Technologies</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">BeautifulSoup</span>
+          <span class="tech-tag">Selenium</span>
+          <span class="tech-tag">PostgreSQL</span>
+        </div>
+        
+        <div class="project-links">
+          <a href="https://github.com/SwaGhost123" class="project-link">View Code</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
