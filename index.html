@@ -3,602 +3,811 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Personal Portfolio - Swagot Saikia</title>
+  <title>Swagot Saikia - 3D Portfolio</title>
   <style>
-    /* Enhanced Cinematic Neon Look */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Segoe UI', 'Arial', sans-serif;
-      margin: 0;
-      min-height: 100vh;
-      background: 
-        linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(10, 25, 47, 0.5)),
-        url('https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') left/50% 100% no-repeat,
-        url('https://images.unsplash.com/photo-1665602878676-219e01293b51?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') right/50% 100% no-repeat;
-      background-blend-mode: overlay, normal, normal;
+      background: #000;
       color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Three.js Canvas Background */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Particle overlay */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #00ffe7;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00ffe7;
+      animation: float 8s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+      50% { transform: translateY(-100px) translateX(50px); opacity: 1; }
+    }
+
+    /* Content wrapper */
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Hero Section with 3D Name */
+    header {
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      scroll-behavior: smooth;
-      position: relative;
-      z-index: 1;
-    }
-    
-    /* Add overlay for better text readability */
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(0, 255, 231, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(255, 0, 200, 0.1) 0%, transparent 50%),
-        linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 20, 40, 0.2));
-      pointer-events: none;
-      z-index: -1;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      border: 3px solid #00ffe7;
-      border-radius: 16px;
-      box-shadow: 
-        0 0 20px #00ffe7,
-        0 0 40px #ff00c8,
-        inset 0 0 20px rgba(0, 255, 231, 0.1);
-      opacity: 0.6;
-      z-index: 0;
-      animation: borderPulse 3s ease-in-out infinite alternate;
-    }
-    
-    @keyframes borderPulse {
-      0% { 
-        box-shadow: 
-          0 0 20px #00ffe7,
-          0 0 40px #ff00c8,
-          inset 0 0 20px rgba(0, 255, 231, 0.1);
-      }
-      100% { 
-        box-shadow: 
-          0 0 40px #00ffe7,
-          0 0 80px #ff00c8,
-          inset 0 0 40px rgba(0, 255, 231, 0.2);
-      }
-    }
-    
-    header, section {
-      padding: 2.5rem;
-      max-width: 900px;
-      margin: 1rem auto;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 14px;
-      border: 1px solid rgba(0, 255, 231, 0.4);
-      backdrop-filter: blur(12px);
-      position: relative;
-      z-index: 1;
-      box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.4),
-        0 4px 16px rgba(0, 255, 231, 0.2);
-    }
-    
-    header {
       text-align: center;
-      background: rgba(0, 0, 0, 0.85);
-      border: 2px solid #00ffe7;
-      box-shadow: 
-        0 0 30px #00ffe7,
-        0 0 60px #ff00c8,
-        0 8px 32px rgba(0, 0, 0, 0.5);
-      animation: headerGlow 4s ease-in-out infinite alternate;
+      position: relative;
+      perspective: 1000px;
     }
-    
-    @keyframes headerGlow {
-      0% { 
-        box-shadow: 
-          0 0 30px #00ffe7,
-          0 0 60px #ff00c8;
-      }
-      100% { 
-        box-shadow: 
-          0 0 50px #00ffe7,
-          0 0 100px #ff00c8;
-      }
+
+    .hero-3d-container {
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
     }
-    
-    /* Vibrant but readable neon text */
+
     h1 {
+      font-size: 5rem;
       color: #ffffff;
-      font-size: 3rem;
       text-shadow: 
-        0 0 8px #00ffe7,
-        0 0 15px #ff00c8,
-        0 2px 4px rgba(0, 0, 0, 0.8);
-      animation: textPulse 3s ease-in-out infinite alternate;
-      margin-bottom: 0.5rem;
+        0 0 20px #00ffe7,
+        0 0 40px #00ffe7,
+        0 0 60px #ff00c8,
+        0 0 80px #ff00c8;
+      animation: heroGlow 3s ease-in-out infinite alternate;
+      transform-style: preserve-3d;
+      letter-spacing: 0.1em;
+      font-weight: 900;
     }
-    
-    @keyframes textPulse {
+
+    @keyframes heroGlow {
       0% { 
         text-shadow: 
-          0 0 8px #00ffe7,
-          0 0 15px #ff00c8,
-          0 2px 4px rgba(0, 0, 0, 0.8);
+          0 0 20px #00ffe7,
+          0 0 40px #00ffe7,
+          0 0 60px #ff00c8,
+          0 0 80px #ff00c8;
       }
       100% { 
         text-shadow: 
-          0 0 12px #00ffe7,
-          0 0 25px #ff00c8,
-          0 2px 4px rgba(0, 0, 0, 0.8);
+          0 0 30px #00ffe7,
+          0 0 60px #00ffe7,
+          0 0 90px #ff00c8,
+          0 0 120px #ff00c8;
       }
     }
-    
+
     .tagline {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       color: #00ffe7;
-      text-shadow: 0 0 8px #00ffe7;
-      margin-top: 0.5rem;
+      text-shadow: 0 0 15px #00ffe7;
+      margin-top: 1rem;
+      animation: fadeIn 2s ease-in;
     }
-    
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      color: #00ffe7;
+      font-size: 2rem;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* Section styling */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s, transform 1s;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     h2 {
       color: #00ffe7;
-      font-size: 2.2rem;
+      font-size: 3rem;
       text-shadow: 
-        0 0 6px #00ffe7,
-        0 0 12px #00ffe7,
-        0 2px 4px rgba(0, 0, 0, 0.8);
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    
-    h3 {
-      color: #ff00c8;
-      text-shadow: 
-        0 0 4px #ff00c8,
-        0 0 8px #ff00c8,
-        0 2px 4px rgba(0, 0, 0, 0.8);
-      margin-bottom: 1rem;
-    }
-    
-    h4 {
-      color: #00ffe7;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 0 8px #00ffe7;
-    }
-    
-    p, li, span {
-      color: #ffffff;
-      font-weight: 400;
-      text-shadow: 
-        0 0 4px rgba(255, 255, 255, 0.8),
-        0 0 8px rgba(0, 255, 231, 0.3),
-        0 1px 2px rgba(0, 0, 0, 0.8);
-      line-height: 1.6;
-    }
-    
-    /* Enhanced buttons */
-    button, input, textarea {
-      background: rgba(0, 0, 0, 0.7);
-      color: #00ffe7;
-      border: 2px solid #00ffe7;
-      box-shadow: 
         0 0 10px #00ffe7,
-        inset 0 0 10px rgba(0, 255, 231, 0.1);
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
+        0 0 20px #00ffe7;
+      text-align: center;
+      margin-bottom: 3rem;
+      transform-style: preserve-3d;
     }
-    
-    button {
-      font-weight: bold;
-      cursor: pointer;
-      padding: 12px 24px;
-      text-shadow: 0 0 8px #00ffe7;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    button:hover {
-      background: #00ffe7;
-      color: #000;
-      box-shadow: 
-        0 0 20px #00ffe7,
-        0 0 40px #ff00c8;
-      transform: translateY(-2px);
-    }
-    
-    /* Glowing links */
-    a {
-      color: #00ffe7;
-      text-decoration: none;
-      text-shadow: 0 0 8px #00ffe7;
-      transition: all 0.3s ease;
-      border-bottom: 1px solid rgba(0, 255, 231, 0.3);
-    }
-    
-    a:hover {
+
+    h3 {
       color: #ff00c8;
       text-shadow: 
         0 0 8px #ff00c8,
         0 0 16px #ff00c8;
-      border-bottom-color: #ff00c8;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
     }
-    
-    /* Neon skill tags */
+
+    p, li {
+      line-height: 1.8;
+      font-size: 1.1rem;
+      color: #e0e0e0;
+    }
+
+    /* Skills */
     .skills {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 1.5rem;
       justify-content: center;
       list-style: none;
-      padding: 0;
-      margin-bottom: 2rem;
+      margin: 2rem 0;
     }
-    
+
     .skills li {
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.8);
       color: #ffffff;
-      padding: 0.8rem 1.5rem;
-      border-radius: 25px;
+      padding: 1rem 2rem;
+      border-radius: 30px;
       font-weight: bold;
       border: 2px solid #ff00c8;
       box-shadow: 
-        0 0 15px #ff00c8,
-        inset 0 0 15px rgba(255, 0, 200, 0.1);
-      text-shadow: 0 0 8px #ffffff;
-      transition: all 0.3s ease;
+        0 0 20px #ff00c8,
+        inset 0 0 15px rgba(255, 0, 200, 0.2);
+      text-shadow: 0 0 10px #ffffff;
+      transition: all 0.4s ease;
+      transform-style: preserve-3d;
+      cursor: pointer;
     }
-    
+
     .skills li:hover {
-      transform: scale(1.1);
+      transform: scale(1.15) translateZ(20px);
       box-shadow: 
-        0 0 25px #ff00c8,
-        0 0 50px #00ffe7;
+        0 0 40px #ff00c8,
+        0 0 60px #00ffe7,
+        inset 0 0 25px rgba(255, 0, 200, 0.3);
     }
-    
-    /* Enhanced project cards */
+
+    /* 3D Project Cards */
     .projects-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+      margin-top: 3rem;
+      perspective: 1000px;
     }
-    
+
     .project-card {
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 20px;
       border: 2px solid #00ffe7;
+      padding: 2rem;
+      transition: all 0.5s ease;
+      transform-style: preserve-3d;
+      position: relative;
+      cursor: pointer;
       box-shadow: 
-        0 0 20px #00ffe7,
-        0 8px 32px rgba(255, 0, 200, 0.3);
-      width: 280px;
-      padding: 1.5rem;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(5px);
+        0 10px 30px rgba(0, 255, 231, 0.3),
+        inset 0 0 20px rgba(0, 255, 231, 0.1);
     }
-    
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: linear-gradient(45deg, transparent, rgba(0, 255, 231, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
     .project-card:hover {
-      transform: translateY(-8px) scale(1.03);
+      transform: translateY(-20px) rotateX(5deg) rotateY(5deg) scale(1.05);
       box-shadow: 
-        0 0 40px #00ffe7,
-        0 0 80px #ff00c8,
-        0 20px 40px rgba(0, 0, 0, 0.3);
+        0 30px 60px rgba(0, 255, 231, 0.5),
+        0 30px 60px rgba(255, 0, 200, 0.3),
+        inset 0 0 30px rgba(0, 255, 231, 0.2);
       border-color: #ff00c8;
     }
-    
-    .project-card img, .project-card video {
-      max-width: 100%;
-      border-radius: 10px;
+
+    .project-card img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 5px 20px rgba(0, 255, 231, 0.3);
+      border: 1px solid rgba(0, 255, 231, 0.5);
+      transition: transform 0.5s;
+    }
+
+    .project-card:hover img {
+      transform: translateZ(30px);
+    }
+
+    .project-card h3 {
       margin-bottom: 1rem;
-      box-shadow: 0 0 15px rgba(0, 255, 231, 0.4);
-      border: 1px solid rgba(0, 255, 231, 0.3);
     }
-    
-    /* Enhanced contact form */
-    .contact-form {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    .form-group {
+
+    .project-card p {
       margin-bottom: 1.5rem;
     }
-    
+
+    .project-card a {
+      color: #00ffe7;
+      text-decoration: none;
+      font-weight: bold;
+      border: 2px solid #00ffe7;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      display: inline-block;
+      transition: all 0.3s;
+      text-shadow: 0 0 10px #00ffe7;
+      background: rgba(0, 255, 231, 0.1);
+    }
+
+    .project-card a:hover {
+      background: #00ffe7;
+      color: #000;
+      transform: translateZ(10px) scale(1.05);
+      box-shadow: 0 0 30px #00ffe7;
+    }
+
+    /* Contact Form */
+    .contact-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .contact-method {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 2rem;
+      border-radius: 15px;
+      border: 2px solid rgba(0, 255, 231, 0.5);
+      transition: all 0.4s ease;
+      text-align: center;
+      transform-style: preserve-3d;
+    }
+
+    .contact-method:hover {
+      border-color: #ff00c8;
+      transform: translateY(-10px) rotateX(5deg);
+      box-shadow: 0 20px 40px rgba(255, 0, 200, 0.4);
+    }
+
+    .contact-method h4 {
+      color: #00ffe7;
+      text-shadow: 0 0 10px #00ffe7;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .contact-form {
+      max-width: 700px;
+      margin: 3rem auto;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 3rem;
+      border-radius: 20px;
+      border: 2px solid #00ffe7;
+      box-shadow: 0 0 40px rgba(0, 255, 231, 0.3);
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
     .form-group label {
       display: block;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
       color: #00ffe7;
       font-weight: bold;
-      text-shadow: 0 0 8px #00ffe7;
+      text-shadow: 0 0 10px #00ffe7;
+      font-size: 1.1rem;
     }
-    
+
     input, textarea {
       width: 100%;
-      padding: 1rem;
+      padding: 1.2rem;
       border: 2px solid rgba(0, 255, 231, 0.5);
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.7);
       color: #ffffff;
-      resize: vertical;
-      outline: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-family: inherit;
+      font-size: 1rem;
       transition: all 0.3s ease;
-      box-sizing: border-box;
+      outline: none;
     }
-    
+
     textarea {
-      min-height: 120px;
+      min-height: 150px;
+      resize: vertical;
     }
-    
+
     input:focus, textarea:focus {
       border-color: #ff00c8;
       box-shadow: 
-        0 0 15px #ff00c8,
-        inset 0 0 10px rgba(255, 0, 200, 0.1);
-      transform: translateY(-1px);
+        0 0 20px rgba(255, 0, 200, 0.5),
+        inset 0 0 15px rgba(255, 0, 200, 0.1);
+      transform: translateY(-2px);
     }
-    
+
     .submit-btn {
       width: 100%;
-      padding: 1rem 2rem;
-      font-size: 1.1rem;
+      padding: 1.3rem 2rem;
+      font-size: 1.2rem;
       font-weight: bold;
       background: linear-gradient(45deg, #00ffe7, #ff00c8);
       color: #000;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
+      letter-spacing: 2px;
+      transition: all 0.4s ease;
       box-shadow: 
-        0 4px 15px rgba(0, 255, 231, 0.3),
-        0 4px 15px rgba(255, 0, 200, 0.3);
+        0 5px 20px rgba(0, 255, 231, 0.4),
+        0 5px 20px rgba(255, 0, 200, 0.4);
+      transform-style: preserve-3d;
     }
-    
+
     .submit-btn:hover {
-      transform: translateY(-2px);
+      transform: translateY(-5px) scale(1.02);
       box-shadow: 
-        0 8px 25px rgba(0, 255, 231, 0.5),
-        0 8px 25px rgba(255, 0, 200, 0.5);
-      filter: brightness(1.1);
+        0 15px 40px rgba(0, 255, 231, 0.6),
+        0 15px 40px rgba(255, 0, 200, 0.6);
+      filter: brightness(1.2);
     }
-    
-    /* Contact information */
-    .contact-info {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    
-    .contact-info h3 {
-      margin-bottom: 1rem;
-    }
-    
-    .contact-methods {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    
-    .contact-method {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 1.5rem;
-      border-radius: 10px;
-      border: 2px solid rgba(0, 255, 231, 0.3);
-      transition: all 0.3s ease;
-      text-align: center;
-    }
-    
-    .contact-method:hover {
-      border-color: #ff00c8;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(255, 0, 200, 0.3);
-    }
-    
-    .contact-method h4 {
-      color: #00ffe7;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 0 8px #00ffe7;
-    }
-    
+
     .contact-icons {
       display: flex;
       justify-content: center;
       gap: 2rem;
-      margin-top: 2rem;
+      margin-top: 3rem;
       flex-wrap: wrap;
     }
-    
+
     .contact-icons a {
       font-size: 1.2rem;
       font-weight: bold;
-      padding: 1rem 1.5rem;
+      padding: 1.2rem 2rem;
       border: 2px solid #00ffe7;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.5);
-      transition: all 0.3s ease;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      transition: all 0.4s ease;
       text-decoration: none;
-      display: inline-block;
+      color: #00ffe7;
+      text-shadow: 0 0 10px #00ffe7;
+      transform-style: preserve-3d;
     }
-    
+
     .contact-icons a:hover {
-      background: rgba(0, 255, 231, 0.1);
-      transform: translateY(-3px);
-      box-shadow: 0 0 20px #00ffe7;
-      border-bottom: 2px solid #00ffe7;
+      background: rgba(0, 255, 231, 0.2);
+      transform: translateY(-8px) scale(1.1);
+      box-shadow: 0 15px 30px rgba(0, 255, 231, 0.5);
     }
-    
+
     .divider {
-      height: 2px;
+      height: 3px;
       background: linear-gradient(90deg, transparent, #00ffe7, #ff00c8, transparent);
-      margin: 2rem 0;
-      border-radius: 2px;
+      margin: 3rem 0;
+      border-radius: 3px;
+      box-shadow: 0 0 20px rgba(0, 255, 231, 0.5);
     }
-    
-    /* Responsive design */
+
+    /* Responsive */
     @media (max-width: 768px) {
-      .projects-grid {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .project-card {
-        width: 100%;
-        max-width: 400px;
-      }
-      
       h1 {
-        font-size: 2.2rem;
+        font-size: 3rem;
       }
-      
+
       h2 {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
-      
-      .contact-icons {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .contact-methods {
+
+      .projects-grid {
         grid-template-columns: 1fr;
       }
-      
-      header, section {
-        padding: 1.5rem;
-        margin: 0.5rem;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.8rem;
-      }
-      
-      .tagline {
-        font-size: 1rem;
-      }
-      
-      .skills li {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
+
+      section {
+        padding: 3rem 1.5rem;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Three.js Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
 
-<header>
-  <h1>Swagot Saikia</h1>
-  <p class="tagline">IT Student | Filmmaker | Editor | Photographer</p>
-</header>
+  <!-- Particle Container -->
+  <div id="particles"></div>
 
-<section id="about">
-  <h2>About Me</h2>
-  <p>I am an IT student passionate about AI, hacking, filmmaking, and photography. I enjoy combining technical skills with creative storytelling to create immersive digital experiences. My goal is to bridge the gap between technology and art, creating innovative solutions that captivate and inspire.</p>
-  <p>When I'm not coding or studying, you'll find me behind a camera capturing moments or editing the next great story. I believe that technology and creativity together can solve any challenge and tell any story worth telling.</p>
-</section>
+  <div class="content">
+    <!-- Hero Section -->
+    <header id="hero">
+      <div class="hero-3d-container">
+        <h1>Swagot Saikia</h1>
+        <p class="tagline">IT Student | Filmmaker | Editor | Photographer</p>
+      </div>
+      <div class="scroll-indicator">↓</div>
+    </header>
 
-<section id="skills">
-  <h2>Skills & Expertise</h2>
-  <div>
-    <h3>Technical Skills</h3>
-    <ul class="skills">
-      <li>Programming</li>
-      <li>Artificial Intelligence</li>
-      <li>IT Infrastructure</li>
-      <li>Web Development</li>
-      <li>Data Analysis</li>
-    </ul>
-  </div>
-  <div>
-    <h3>Creative Skills</h3>
-    <ul class="skills">
-      <li>Filmmaking</li>
-      <li>Video Editing</li>
-      <li>Photography</li>
-      <li>Visual Storytelling</li>
-    </ul>
-  </div>
-</section>
+    <!-- About Section -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>I am an IT student passionate about AI, hacking, filmmaking, and photography. I enjoy combining technical skills with creative storytelling to create immersive digital experiences. My goal is to bridge the gap between technology and art, creating innovative solutions that captivate and inspire.</p>
+      <p style="margin-top: 1.5rem;">When I'm not coding or studying, you'll find me behind a camera capturing moments or editing the next great story. I believe that technology and creativity together can solve any challenge and tell any story worth telling.</p>
+    </section>
 
-<section id="projects">
-  <h2>Featured Projects</h2>
-  <div class="projects-grid">
-    <div class="project-card">
-      <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Technical Project Thumbnail" />
-      <h3>Technical Projects</h3>
-      <p>Innovative technical solutions combining AI, cybersecurity, and modern web technologies. These projects showcase my problem-solving skills and technical expertise.</p>
-      <a href="technical-projects.html">View Technical Projects →</a>
-    </div>
-    <div class="project-card">
-      <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Creative Project Thumbnail" />
-      <h3>Creative Projects</h3>
-      <p>Film projects, photography collections, and visual storytelling work that demonstrate my artistic vision and technical skills in multimedia production.</p>
-      <a href="creative-projects.html">View Creative Projects</a>
-    </div>
-  </div>
-</section>
+    <!-- Skills Section -->
+    <section id="skills">
+      <h2>Skills & Expertise</h2>
+      <div>
+        <h3>Technical Skills</h3>
+        <ul class="skills">
+          <li>Programming</li>
+          <li>Artificial Intelligence</li>
+          <li>IT Infrastructure</li>
+          <li>Web Development</li>
+          <li>Data Analysis</li>
+        </ul>
+      </div>
+      <div style="margin-top: 3rem;">
+        <h3>Creative Skills</h3>
+        <ul class="skills">
+          <li>Filmmaking</li>
+          <li>Video Editing</li>
+          <li>Photography</li>
+          <li>Visual Storytelling</li>
+        </ul>
+      </div>
+    </section>
 
-<section id="contact">
-  <h2>Get In Touch</h2>
-  
-  <div class="contact-info">
-    <p>Let's collaborate on your next project! Whether you need technical expertise or creative solutions, I'm here to help bring your vision to life.</p>
-  </div>
-  
-  <div class="contact-methods">
-    <div class="contact-method">
-      <h4>📧 Direct Email</h4>
-      <p>swagotsaikia@gmail.com</p>
-      <p>I'll get back to you within 24 hours</p>
-    </div>
-    <div class="contact-method">
-      <h4>📱 Quick Response</h4>
-      <p>Use the form below for fastest response</p>
-      <p>Perfect for project inquiries and collaborations</p>
-    </div>
-  </div>
-  
-  <div class="divider"></div>
-  
-  <div class="contact-form">
-    <h3>Send me a message</h3>
-    <form action="https://formspree.io/f/mkgqovwe" method="POST">
-      <div class="form-group">
-        <label for="name">Your Name</label>
-        <input type="text" id="name" name="name" placeholder="John Doe" required>
+    <!-- Projects Section -->
+    <section id="projects">
+      <h2>Featured Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Technical Project" />
+          <h3>Technical Projects</h3>
+          <p>Innovative technical solutions combining AI, cybersecurity, and modern web technologies. These projects showcase my problem-solving skills and technical expertise.</p>
+          <a href="#">View Technical Projects →</a>
+        </div>
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Creative Project" />
+          <h3>Creative Projects</h3>
+          <p>Film projects, photography collections, and visual storytelling work that demonstrate my artistic vision and technical skills in multimedia production.</p>
+          <a href="#">View Creative Projects →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>Get In Touch</h2>
+      
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <p style="font-size: 1.2rem;">Let's collaborate on your next project! Whether you need technical expertise or creative solutions, I'm here to help bring your vision to life.</p>
       </div>
       
-      <div class="form-group">
-        <label for="email">Your Email</label>
-        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <h4>📧 Direct Email</h4>
+          <p>swagotsaikia@gmail.com</p>
+          <p style="margin-top: 0.5rem; opacity: 0.8;">I'll get back to you within 24 hours</p>
+        </div>
+        <div class="contact-method">
+          <h4>📱 Quick Response</h4>
+          <p>Use the form below for fastest response</p>
+          <p style="margin-top: 0.5rem; opacity: 0.8;">Perfect for project inquiries and collaborations</p>
+        </div>
       </div>
       
-      <div class="form-group">
-        <label for="subject">Subject</label>
-        <input type="text" id="subject" name="subject" placeholder="Project Collaboration" required>
+      <div class="divider"></div>
+      
+      <div class="contact-form">
+        <h3 style="text-align: center; margin-bottom: 2rem;">Send me a message</h3>
+        <form action="https://formspree.io/f/mkgqovwe" method="POST">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="John Doe" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Project Collaboration" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project, idea, or how we can work together..." required></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
       </div>
       
-      <div class="form-group">
-        <label for="message">Your Message</label>
-        <textarea id="message" name="message" placeholder="Tell me about your project, idea, or how we can work together..." required></textarea>
-      </div>
+      <div class="divider"></div>
       
-      <button type="submit" class="submit-btn">Send Message</button>
-    </form>
+      <div class="contact-icons">
+        <a href="https://github.com/SwaGhost123" target="_blank" rel="noopener">🔗 GitHub</a>
+        <a href="https://www.linkedin.com/in/swagot-saikia-41b145384/" target="_blank" rel="noopener">💼 LinkedIn</a>
+        <a href="mailto:swagotsaikia@gmail.com">✉️ Email</a>
+      </div>
+    </section>
   </div>
-  
-  <div class="divider"></div>
-  
-  <div class="contact-icons">
-    <a href="https://github.com/SwaGhost123" target="_blank" rel="noopener">🔗 GitHub</a>
-    <a href="https://www.linkedin.com/in/swagot-saikia-41b145384/" target="_blank" rel="noopener">💼 LinkedIn</a>
-    <a href="mailto:swagotsaikia@gmail.com">✉️ Email</a>
-  </div>
-</section>
 
-</body>
-</html>
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    // ========================================
+    // THREE.JS ANIMATED BACKGROUND
+    // ========================================
+    const canvas = document.getElementById('bg-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    camera.position.z = 5;
+
+    // Create neon grid
+    const gridHelper = new THREE.GridHelper(50, 50, 0x00ffe7, 0xff00c8);
+    gridHelper.rotation.x = Math.PI / 2;
+    gridHelper.position.z = -10;
+    scene.add(gridHelper);
+
+    // Create floating particles
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 1000;
+    const posArray = new Float32Array(particlesCount * 3);
+    
+    for(let i = 0; i < particlesCount * 3; i++) {
+      posArray[i] = (Math.random() - 0.5) * 50;
+    }
+    
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const particlesMaterial = new THREE.PointsMaterial({
+      size: 0.05,
+      color: 0x00ffe7,
+      transparent: true,
+      opacity: 0.8,
+      blending: THREE.AdditiveBlending
+    });
+    
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
+
+    // Create rotating rings
+    const ringGeometry = new THREE.TorusGeometry(3, 0.02, 16, 100);
+    const ringMaterial = new THREE.MeshBasicMaterial({ 
+      color: 0xff00c8,
+      transparent: true,
+      opacity: 0.6
+    });
+    const ring1 = new THREE.Mesh(ringGeometry, ringMaterial);
+    ring1.rotation.x = Math.PI / 4;
+    scene.add(ring1);
+
+    const ring2 = new THREE.Mesh(ringGeometry, new THREE.MeshBasicMaterial({ 
+      color: 0x00ffe7,
+      transparent: true,
+      opacity: 0.6
+    }));
+    ring2.rotation.y = Math.PI / 4;
+    scene.add(ring2);
+
+    // Mouse tracking for dynamic effects
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    // Animation loop
+    let time = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      time += 0.01;
+
+      // Rotate rings
+      ring1.rotation.z += 0.003;
+      ring2.rotation.x += 0.002;
+
+      // Animate particles
+      particlesMesh.rotation.y += 0.0005;
+      particlesMesh.rotation.x = Math.sin(time * 0.5) * 0.1;
+
+      // Move grid
+      gridHelper.position.y = Math.sin(time * 0.3) * 0.5;
+
+      // Camera movement based on mouse
+      targetX = mouseX * 0.3;
+      targetY = mouseY * 0.3;
+      camera.position.x += (targetX - camera.position.x) * 0.05;
+      camera.position.y += (targetY - camera.position.y) * 0.05;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // ========================================
+    // FLOATING PARTICLES (HTML)
+    // ========================================
+    const particlesContainer = document.getElementById('particles');
+    for(let i = 0; i < 30; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 8 + 's';
+      particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      particlesContainer.appendChild(particle);
+    }
+
+    // ========================================
+    // 3D HERO NAME INTERACTION
+    // ========================================
+    const heroContainer = document.querySelector('.hero-3d-container');
+    const hero = document.getElementById('hero');
+
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      
+      heroContainer.style.transform = `
+        rotateY(${x * 20}deg) 
+        rotateX(${-y * 20}deg)
+        translateZ(50px)
+      `;
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      heroContainer.style.transform = 'rotateY(0) rotateX(0) translateZ(0)';
+    });
+
+    // ========================================
+    // 3D TILT FOR PROJECT CARDS
+    // ========================================
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    projectCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        
+        card.style.transform = `
+          translateY(-20px) 
+          rotateY(${x * 15}deg) 
+          rotateX(${-y * 15}deg) 
+          scale(1.05)
+        `;
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+
+    // ========================================
+    // SCROLL ANIMATIONS
+    // ========================================
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // ========================================
+    // CURSOR GLOW EFFECT
+    // ========================================
+    const cursorGlow = document.createElement('div');
+    cursorGlow.style.cssText = `
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 255, 231, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+      opacity: 0;
+    `;
+    document.body.appendChild(cursorGlow);
+
+    document.addEventListener('mousemove', (e) => {
+      cursorGlow.style.left = e.clientX + 'px';
+      cursorGlow.style.top = e.clientY + 'px';
+      cursorGlow.style.opacity = '1';
+    });
+
+    document.addEventListener('mouseleave', () => {
+      cursorGlow.style.opacity = '0';
+    });
+
+    // ========================================
+    // SMOOTH SCROLLING
+    // ========================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click',
